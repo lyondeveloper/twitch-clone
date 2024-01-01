@@ -14,7 +14,29 @@ model User {
   imageUrl String @db.Text
   externalUserId String @unique
   bio String? @db.Text
+
+  following Follow[] @relation("Following")
+  followedBy Follow[] @relation("FollowedBy")
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+// con esto podemos apuntar una relacion a otro modelo pero con distinta data
+// en este caso el modelo follow apunta a user pero con distintos pointers
+// para tener referencia de los que siguen al usuario y los que el usuario sigue
+// con el mismo modelo.
+model Follow {
+  id String @id @default(uuid())
+  followerId String
+  followingId String
+
+  follower User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
 }
