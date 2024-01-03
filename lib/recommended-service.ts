@@ -16,13 +16,36 @@ export const getRecommended = async () => {
   let users = [];
 
   if (userId) {
+    // AND is an array of conditions
     // NOT excludes the condition you send to prisma
     // in this case we get all of the users excluding the self user
     users = await db.user.findMany({
       where: {
-        NOT: {
-          id: userId,
-        }
+        AND: [
+          {
+            NOT: {
+              id: userId,
+            }
+          },
+          {
+            NOT: {
+              followedBy: {
+                some: {
+                  followerId: userId
+                }
+              }
+            }
+          },
+          {
+            NOT: {
+              blocking: {
+                some: {
+                  blockedId: userId
+                }
+              }
+            }
+          }
+        ],
       },
       orderBy: {
         createdAt: 'desc'
