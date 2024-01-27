@@ -5,9 +5,10 @@ import { useChat, useConnectionState, useRemoteParticipant } from "@livekit/comp
 import { ConnectionState } from "livekit-client";
 import { useEffect, useMemo, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { ChatHeader } from "./chat-header";
-import { ChatForm } from "./chat-form";
-import { ChatList } from "./chat-list";
+import { ChatHeader, ChatHeaderSkeleton } from "./chat-header";
+import { ChatForm, ChatFormSkeleton } from "./chat-form";
+import { ChatList, ChatListSkeleton } from "./chat-list";
+import { ChatCommunity } from "./chat-community";
 
 interface ChatProps {
   hostName: string;
@@ -85,10 +86,22 @@ export const Chat = ({
       )}
 
       {variant === ChatVariant.COMMUNITY && (
-        <>
-          <p>Community</p>
-        </>
+        <ChatCommunity
+          isHidden={isHidden}
+          viewerName={viewerName}
+          hostName={hostName}
+        />
       )}
     </div>
   )
+};
+
+export const ChatSkeleton = () => {
+  return (
+    <div className="flex flex-col border-l border-b pt-0 border-2 h-[calc(100vh - 80px)]">
+      <ChatHeaderSkeleton />
+      <ChatListSkeleton />
+      <ChatFormSkeleton />
+    </div>
+  );
 };

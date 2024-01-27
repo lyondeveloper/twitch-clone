@@ -3,13 +3,13 @@
 import { stringToColor } from '@/lib/utils';
 import { ReceivedChatMessage } from '@livekit/components-react';
 import { format } from 'date-fns';
+import { Skeleton } from '../ui/skeleton';
 
 interface ChatMessageProps {
   data: ReceivedChatMessage;
 }
 
 export const ChatMessage = ({ data }: ChatMessageProps) => {
-  console.log('data ==>>', data);
   const color = stringToColor(data.from?.name || '');
 
   return (
@@ -20,7 +20,7 @@ export const ChatMessage = ({ data }: ChatMessageProps) => {
 
       <div className="flex flex-wrap items-baseline gap-1 grow">
         <p className="text-sm font-semibold whitespace-nowrap">
-          <span className='truncate' style={{ color }}>{data.from?.name}</span>
+          <span className='truncate' style={{ color }}>{data.from?.name}</span>:
         </p>
         <p className="text-sm break-all">
           {data.message}
@@ -28,4 +28,4 @@ export const ChatMessage = ({ data }: ChatMessageProps) => {
       </div>
     </div>
   )
-}
+};
