@@ -37,7 +37,7 @@ export const Chat = ({
 
   const isOnline = participant && connectionState === ConnectionState.Connected;
 
-  const isHidden = !isChatEnabled || !isOnline;
+  const isHidden = !isChatEnabled;
 
   const [value, setValue] = useState('');
 

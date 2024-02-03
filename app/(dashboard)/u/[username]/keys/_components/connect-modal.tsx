@@ -41,10 +41,14 @@ export const ConnectModal = () => {
     startTransition(() => {
       createIngress(parseInt(ingressType))
         .then((data) => {
-          toast.success('Ingress created');
+          toast.success('Connection created');
           closeRef?.current?.click();
         })
-        .catch((error) => toast.error('Error creating the ingress'));
+        .catch((error) => {
+          console.log('error ==>>', error);
+          debugger;
+          toast.error('Error creating the ingress')
+        });
     });
   };
 

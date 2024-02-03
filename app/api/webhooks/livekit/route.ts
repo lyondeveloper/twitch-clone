@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   const body = await req.text();
   const headerPayload = headers();
   const auth = headerPayload.get('Authorization');
-
+  console.log('data ==>>', { body, headerPayload, auth });
   if (!auth) {
     return new NextResponse("No authorization header", { status: 400 });
   }
@@ -37,4 +37,6 @@ export async function POST(req: Request) {
       }
     });
   }
+
+  return NextResponse.json({ success: true });
 }

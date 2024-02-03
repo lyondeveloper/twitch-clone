@@ -65,10 +65,12 @@ export const createIngress = async (ingressType: IngressInput) => {
     };
   }
 
+  console.log('ingress ==>>', {ingressType, options});
   const ingress = await ingressClient.createIngress(
     ingressType,
     options
   );
+
 
   if (!ingress || !ingress.url || !ingress.streamKey) {
     throw new Error('Failed to create ingress');
