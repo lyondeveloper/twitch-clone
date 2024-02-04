@@ -10,7 +10,7 @@ interface FeedCardProps {
     user: User;
     isLive: boolean;
     name: string;
-    thumbnailUrl: string;
+    thumbnailUrl: string | null;
   };
 }
 
